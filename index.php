@@ -12,12 +12,16 @@ function errorcheck($invite, $msg)
 try {
   $email = $_POST['email'];
   $password = $_POST['password'];
-  $provider = $_POST['provider'];
 
-  if (!$email || !$password || !$provider) {
-    throw new Exception('Missing credentials or provider');
+  if (!$email || !$password) {
+    throw new Exception('Missing credentials');
   }
   $inviter = new OpenInviter();
+  $provider = $inviter->getPluginByDomain($email);
+  if (!$provider) {
+    throw new Exception('Invalid domain');
+  }
+
   $inviter->startPlugin($provider);
   errorcheck($inviter, 'Error initializing plugin');
   $inviter->login($email, $password);
