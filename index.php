@@ -17,6 +17,7 @@ try {
     throw new Exception('Missing credentials');
   }
   $inviter = new OpenInviter();
+  $inviter->getPlugins();
   $provider = $inviter->getPluginByDomain($email);
   if (!$provider) {
     throw new Exception('Invalid domain');

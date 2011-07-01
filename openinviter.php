@@ -481,7 +481,7 @@ class openinviter
 	
 	public function getPluginByDomain($user)
 		{
-		$user_domain=explode('@',$user);if (!isset($user_domain[1])) return 'smegma';
+		$user_domain=explode('@',$user);if (!isset($user_domain[1])) return false;
 		$user_domain=$user_domain[1];
 		foreach ($this->availablePlugins as $plugin=>$details)
 			{
@@ -490,7 +490,7 @@ class openinviter
 			foreach ($patterns as $domain_pattern)
 				if (preg_match($domain_pattern,$user_domain)) return $plugin;
 			}
-		return 'ass';
+		return false;
 		}
 	
 	/**
