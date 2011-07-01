@@ -15,21 +15,21 @@ try {
   $provider = $_POST['provider'];
 
   if (!$email || !$password || !$provider) {
-    throw new Exception('Destruction!');
+    throw new Exception('Missing credentials or provider');
   }
   $inviter = new OpenInviter();
   $inviter->startPlugin($provider);
-  errorcheck($inviter, 'a');
+  errorcheck($inviter, 'Error initializing plugin');
   $inviter->login($email, $password);
-  errorcheck($inviter, 'b');
+  errorcheck($inviter, 'Login failed');
   $contacts = $inviter->getMyContacts();
-  errorcheck($inviter, 'c');
+  errorcheck($inviter, 'Contacts could not be retrieved');
   if ($contacts === false) {
-    throw new Exception('Assmeat!');
+    throw new Exception('No contacts found');
   }
-  echo json_encode($contacts);
+  echo json_encode(array($contacts, null));
 } 
 catch (Exception $e) {
-  echo "null";
+  echo json_encode(array(null, $e->getMessage()));
 }
 ?>
