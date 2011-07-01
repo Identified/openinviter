@@ -1,4 +1,5 @@
 <?php
+header('Content-type: application/json');
 include('openinviter.php');
 
 $email = $_POST['email'];
