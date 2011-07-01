@@ -1,9 +1,9 @@
 <?php
 include('openinviter.php');
 
-$email = _POST['email'];
-$password = _POST['password'];
-$provider = _POST['provider'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$provider = $_POST['provider'];
 
 
 function errorcheck($invite)
