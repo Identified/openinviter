@@ -1,32 +1,33 @@
 <?php
-header('Content-type: application/json');
+//header('Content-type: application/json');
 include('openinviter.php');
 
-$email = $_POST['email'];
-$password = $_POST['password'];
-$provider = $_POST['provider'];
-
-
-function errorcheck($invite)
+function errorcheck($invite, $msg)
 {
-  if ($inviter->getInternalError()) {
-    throw new Exception('Death!');
+  if ($invite->getInternalError()) {
+    throw new Exception($msg);
   }
 }
 
 try {
-  if (!$email || !$password || !$provider) throw new Exception('Destruction!');
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $provider = $_POST['provider'];
+
+  if (!$email || !$password || !$provider) {
+    throw new Exception('Destruction!');
+  }
   $inviter = new OpenInviter();
   $inviter->startPlugin($provider);
-  errorcheck($inviter);
+  errorcheck($inviter, 'a');
   $inviter->login($email, $password);
-  errorcheck($inviter);
+  errorcheck($inviter, 'b');
   $contacts = $inviter->getMyContacts();
-  errorcheck($inviter);
+  errorcheck($inviter, 'c');
   if ($contacts === false) {
     throw new Exception('Assmeat!');
   }
-  echo $contacts;
+  echo json_encode($contacts);
 } 
 catch (Exception $e) {
   echo "null";
