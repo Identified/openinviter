@@ -59,7 +59,11 @@ class yahoo extends openinviter_base
 			return false;
 			}
 		
-		$post_elements=$this->getHiddenElements($res);$post_elements["save"]="Sign+In";$post_elements['login']=$user;$post_elements['passwd']=$pass;		
+		$post_elements=$this->getHiddenElements($res);
+    $post_elements[".save"]="";
+    $post_elements['login']=$user;
+    $post_elements['passwd']=$pass;		
+    $post_elements['passwd_raw']="";
 	    $res=$this->post("https://login.yahoo.com/config/login?",$post_elements,true);	    
 	   	if ($this->checkResponse('login_post',$res))
 			$this->updateDebugBuffer('login_post',"https://login.yahoo.com/config/login?",'POST',true,$post_elements);
