@@ -98,8 +98,10 @@ class yahoo extends openinviter_base
 			$url=$this->login_ok;
 		$contacts=array();		
 		$res=$this->get($url,true);
-		if ($this->checkResponse("print_page",$res))		
+		if ($this->checkResponse("print_page",$res)) {
 			$this->updateDebugBuffer('print_page',"{$url}",'GET');
+      $this->debugRequest();
+    }
 		else 
 			{
 			$this->updateDebugBuffer('print_page',"{$url}",'GET',false);
