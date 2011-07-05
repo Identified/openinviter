@@ -118,7 +118,8 @@ class yahoo extends openinviter_base
 							);
 		$res=$this->post("http://address.mail.yahoo.com/?_src=&VPC=print",$post_elements);
 		$emailA=array();$bulk=array();
-		$res=str_replace(array('  ','	',PHP_EOL,"\n","\r\n"),array('','','','',''),$res);
+    $res = preg_replace("#\>[ \t\n\r]*\<#U", '><', $res);
+
 		preg_match_all("#\<tr class\=\"phead\"\>\<td colspan\=\"2\"\>(.+)\<\/tr\>(.+)\<div class\=\"first\"\>\<\/div\>\<div\>\<\/div\>(.+)\<\/div\>#U",$res,$bulk);
 		if (!empty($bulk))
 			{
